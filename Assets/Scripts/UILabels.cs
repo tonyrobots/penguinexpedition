@@ -9,7 +9,10 @@ public class UILabels : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI turnLabel = null;
     [SerializeField] private TextMeshProUGUI penguinLabel = null;
-    [SerializeField] private TextMeshProUGUI foodLabel = null; 
+    [SerializeField] private TextMeshProUGUI foodLabel = null;
+    [SerializeField] private TextMeshProUGUI moraleLabel = null;
+    [SerializeField] private TextMeshProUGUI distanceLabel = null;
+
 
 
     // Start is called before the first frame update
@@ -21,8 +24,10 @@ public class UILabels : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        turnLabel.text = "Turn: " + Game.Instance.turn;
-        penguinLabel.text = "Penguins: " + Game.Instance.penguins;
-        foodLabel.text = "Food: " + Game.Instance.food;
+        turnLabel.text = "March " + Game.Instance.turn + ", 1898";
+        penguinLabel.text = Game.Instance.penguins + " penguins";
+        foodLabel.text = Game.Instance.food + " food left";
+        distanceLabel.text = (Game.Instance.goalDistance - Game.Instance.distance) + " miles to go";
+        moraleLabel.text = "morale: " + Game.Instance.morale;
     }
 }
