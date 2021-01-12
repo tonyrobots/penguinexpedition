@@ -13,6 +13,15 @@ public enum Counters
     PENGUINS
 }
 
+public enum Activities
+{
+    FISH,
+    SAFE_TRAVEL,
+    RISKY_TRAVEL,
+    FROLIC,
+    NONE
+}
+
 
 public class Game : Singleton<Game>
 {
@@ -26,8 +35,20 @@ public class Game : Singleton<Game>
     public int goalDistance = 100;
 
     private bool planning = true;
+    public Activities daysActivity;
 
-    [SerializeField] private GameObject illustrationImageGO;
+    public struct DayTally
+    {
+        public int DistanceTraveled;
+        public int MoraleGained;
+        public int FishEaten;
+        public int FishCaught;
+        public int PenguinsGained;
+    }
+
+    public DayTally[] daysTally;
+
+    [SerializeField] private GameObject illustrationImageGO = null;
     private Image illustrationImage;
 
     [SerializeField] private TextMeshProUGUI mainText = null;
@@ -39,7 +60,7 @@ public class Game : Singleton<Game>
     {
         illustrationImage = illustrationImageGO.GetComponent<Image>();
         UIManager.Instance.SetActionsPanelVisibility(false);
-        
+        daysTally = new DayTally[32];
     }
 
     // Update is called once per frame
@@ -48,13 +69,48 @@ public class Game : Singleton<Game>
         
     }
 
-    public void Endturn(int mode=0)
+    // Core game loop:
+    //
+    // 1. Plan - set activity for next day
+    // 2. display outcome - could be a special event, or could be normal outcome
+    // 3. back to planning, where we also show net results
+
+    public void SetActivity(int activity_int)
+    {
+        Activities activity;
+        // this is hacky, used because can't set enum as parameter in unity inspector for buttons
+        switch (activity_int)
+        {
+            case 1:
+                activity = Activities.FISH;
+                break;
+            case 2:
+                activity = Activities.SAFE_TRAVEL;
+                break;
+
+            case 3:
+                activity = Activities.RISKY_TRAVEL;
+                break;
+
+            case 4:
+                activity = Activities.FROLIC;
+                break;
+
+            default:
+                activity = Activities.NONE;
+                break;
+        }
+        daysActivity = activity;
+        Endturn();
+    }
+
+    public void Endturn()
     {
 
-        if (mode !=0)  {
-            Debug.Log("action: " + mode);
-        }
-
+        // if (activity !=0)  {
+        //     Debug.Log("action: " + activity);
+        // }
+        Debug.Log("today's activity: " + daysActivity.ToString());
         if (penguins <= 0) return;
 
         if (!planning) {
@@ -65,39 +121,88 @@ public class Game : Singleton<Game>
             turn++;
 
             // Generate event
-            GetRandomEvent();  
+            GetRandomEvent(daysActivity);  
         } else {
+
+            // Night/Planning phase
 
             UIManager.Instance.SetActionsPanelVisibility(true);
 
-            mainText.text = "<u>planning phase</u>\n";
+            mainText.text = "<u>around the campfire</u>\n";
 
-            int todayDistance = 6;
-            int todayMorale = -5;
-            int todayFood = -penguins;
+            // DETERMINE EFFECTS OF DAYS ACTIVITY
+            switch (daysActivity)
+            {
+                case Activities.FISH:
+                    // stop and fish
+                    daysTally[turn].FishCaught += Random.Range(5, 25);
+                    daysTally[turn].MoraleGained = Mathf.RoundToInt(daysTally[turn].FishCaught /5);
+                    daysTally[turn].DistanceTraveled += 0;
+                    break;
+                case Activities.SAFE_TRAVEL:
+                    // safe route
+                    daysTally[turn].MoraleGained = Random.Range(-5, 3);
+                    daysTally[turn].DistanceTraveled += Random.Range(5,10);
+                    break;
+                case Activities.RISKY_TRAVEL:
+                    // aggressive route
+                    daysTally[turn].MoraleGained = Random.Range(-15, 5);
+                    daysTally[turn].DistanceTraveled += Random.Range(10, 20);
+                    break;
+
+                case Activities.FROLIC:
+                    // rest and frolic!
+                    daysTally[turn].MoraleGained = Random.Range(5, 15);
+                    daysTally[turn].DistanceTraveled += 0;
+                    break;
+                
+                default:
+                    break;
+
+            }
+
+            // Apply fish eaten to day's tally
+            daysTally[turn].FishEaten += penguins;
+
+
+            // APPLY EFFECTS/TALLY
+
+            // add food to larder
+            food += daysTally[turn].FishCaught;
 
             // consume food
-            food += todayFood;
+            food -= daysTally[turn].FishEaten;
 
             // make progress
-            distance += todayDistance;
+            distance += daysTally[turn].DistanceTraveled;
 
             // morale decays
-            morale += todayMorale;
+            morale += daysTally[turn].MoraleGained;
 
+            // clear effects display from special events
+            effectsSummaryText.text = "";
+
+            // CHECK WIN/LOSE/OTHER CONDITIONS
             // if out of food, pengy dies
             if (food <= 0) {
                 food = 0;
                 penguins--;
             }
 
-            mainText.text += $"Today we traveled {todayDistance} miles, and ate {Mathf.Min(Mathf.Abs(todayFood),penguins)} fish.";
+            mainText.text += $"Today we traveled {daysTally[turn].DistanceTraveled} miles, ";
+            
+            if (daysTally[turn].FishCaught >0)
+            {
+                mainText.text += $"caught { daysTally[turn].FishCaught} fish, & ate {daysTally[turn].FishEaten} of them.";    
+            } else {
+                mainText.text += $"& ate {daysTally[turn].FishEaten} fish.";
+            }
 
             // if morale is exhausted, game over
             if (morale <= 0)
             {
                 morale = 0;
-                PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
+                PlayEvent(EventManager.Instance.FindEventByID("lose"));
 
 
             }
@@ -106,14 +211,14 @@ public class Game : Singleton<Game>
             if (penguins <= 0)
             {
                 penguins = 0;
-                PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
+                PlayEvent(EventManager.Instance.FindEventByID("lose"));
 
                 Debug.Log("Game over!");
             }
             // if we have traveled to the goal, game over - winner, winner!
             if (distance >= goalDistance)
             {
-                PlayEvent(EventManager.Instance.FindEventByName("You have arrived!"));
+                PlayEvent(EventManager.Instance.FindEventByID("win"));
                 Debug.Log("Game over!");
             }
         }
@@ -122,9 +227,16 @@ public class Game : Singleton<Game>
         planning = !planning;
     }
 
-    public void GetRandomEvent()
+    public void GetRandomEvent(Activities activity)
     {
-        Event currentEvent = EventManager.Instance.randomEvents[Random.Range(0,EventManager.Instance.randomEvents.Count)];
+        Event currentEvent;
+        if (Random.Range(0,1f) > .7f)
+        {
+            // 30% chance of random event
+            currentEvent = EventManager.Instance.randomEvents[Random.Range(0,EventManager.Instance.randomEvents.Count)];
+        } else {
+            currentEvent = EventManager.Instance.FindEventByID("travel1");
+        }
         PlayEvent(currentEvent);
 
     }
@@ -149,6 +261,26 @@ public class Game : Singleton<Game>
         {
             PlayEvent(e.NextEvent);
         }
+    }
+
+    public void TallyCounterForDay(Counters type, int value)
+    {
+        switch (type)
+        {
+            case Counters.FOOD:
+                daysTally[turn].FishCaught += value;
+                break;
+            case Counters.MORALE:
+                daysTally[turn].MoraleGained += value;
+                break;
+            case Counters.DISTANCE:
+                daysTally[turn].DistanceTraveled += value;
+                break;
+            case Counters.PENGUINS:
+                daysTally[turn].PenguinsGained += value;
+                break;
+        }
+    
     }
 
     // public void GetEvent()

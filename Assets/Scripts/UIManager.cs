@@ -9,13 +9,13 @@ public class UIManager : Singleton<UIManager>
 {
 
     [SerializeField]
-    private Canvas mainCanvas;  
+    private Canvas mainCanvas= null;  
 
     [SerializeField]
-    private GameObject actionsPanel;
+    private GameObject actionsPanel= null;
 
     [SerializeField]
-    private GameObject endTurnButton;
+    private GameObject endTurnButton = null;
 
     // Start is called before the first frame update
     void Start()

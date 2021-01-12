@@ -17,4 +17,6 @@ MonoBehaviour:
     one day, and remember your travails.
   eventEffects: []
   nextEvent: {fileID: 0}
+  id: lose
   illustration: {fileID: 0}
+  repeatable: 0

@@ -22,3 +22,6 @@ MonoBehaviour:
   - key: 1
     value: 6
   nextEvent: {fileID: 0}
+  id: walrus
+  illustration: {fileID: 0}
+  repeatable: 0

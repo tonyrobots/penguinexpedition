@@ -869,7 +869,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 375308016}
-        m_MethodName: Endturn
+        m_MethodName: SetActivity
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1020,7 +1020,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 375308016}
-        m_MethodName: Endturn
+        m_MethodName: SetActivity
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1171,7 +1171,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 375308016}
-        m_MethodName: Endturn
+        m_MethodName: SetActivity
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1256,6 +1256,7 @@ MonoBehaviour:
   distance: 0
   morale: 100
   goalDistance: 100
+  daysActivity: 0
   illustrationImageGO: {fileID: 1246273656}
   mainText: {fileID: 1896142836}
   effectsSummaryText: {fileID: 1584458248}
@@ -1292,6 +1293,7 @@ MonoBehaviour:
   fixedEvents:
   - {fileID: 11400000, guid: fb5d1950cd44b6240b0926fb9485a6d3, type: 2}
   - {fileID: 11400000, guid: b6a08a3c28c6d194b9a94dd6add48e1b, type: 2}
+  - {fileID: 11400000, guid: df0ac55b251039f41aa0d21943dc6131, type: 2}
 --- !u!114 &375308019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2372,7 +2374,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 375308016}
-        m_MethodName: Endturn
+        m_MethodName: SetActivity
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2477,7 +2479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c93c7209f9b7174b8ebea3a5e16dd17, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 834f102a9a5945f44bc206d3b8d8d405, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3864,7 +3866,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 375308016}
         m_MethodName: Endturn
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

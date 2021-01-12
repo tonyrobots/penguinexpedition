@@ -20,6 +20,7 @@ public class Event : ScriptableObject
     // [SerializeField] private List<Option> options = null;
 
     [SerializeField] private Event nextEvent;
+    public string id;
 
     public Sprite illustration;
 
@@ -34,6 +35,7 @@ public class Event : ScriptableObject
     public string Copy => copy;
     public Event NextEvent => nextEvent;
     public List<EventEffect> EventEffects => eventEffects;
+    public bool repeatable;
 
 
     // [System.Serializable]
@@ -55,27 +57,8 @@ public class Event : ScriptableObject
 
         foreach (EventEffect effect in eventEffects)
         {
-            switch (effect.key)
-            {
-                case Counters.FOOD:
-                    Game.Instance.food += effect.value;
-                    break;
-                case Counters.MORALE:
-                    Game.Instance.morale += effect.value;
-                    break;
-                case Counters.DISTANCE:
-                    Game.Instance.distance += effect.value;
-                    break;
-                case Counters.PENGUINS:
-                    Game.Instance.penguins += effect.value;
-                    break;
-                default:
-                    Debug.Log("No match found for event effect " + effect.key);
-                    break;
-            }
+            Game.Instance.TallyCounterForDay(effect.key, effect.value);
             effectsSummary += FormatEffectSummary(effect.key, effect.value);
-            Debug.Log($"{effect.key} adjusted by {effect.value}");
-
         }
 
         return effectsSummary;

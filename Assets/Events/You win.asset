@@ -16,5 +16,7 @@ MonoBehaviour:
   copy: "You crest a snow bank, and the clouds part, letting sunshine through. \n\n...
     you won!"
   eventEffects: []
-  options: []
   nextEvent: {fileID: 0}
+  id: win
+  illustration: {fileID: 0}
+  repeatable: 0
