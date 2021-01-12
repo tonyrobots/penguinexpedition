@@ -22,7 +22,12 @@ public class UILabels : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        turnLabel.text = "March " + Game.Instance.turn + ", 1898";
+        if (Game.Instance.turn > 0) 
+        {
+            turnLabel.text = "March " + Game.Instance.turn + ", 1898";
+        } else {
+            turnLabel.text = "February 29, 1898";
+        }
         penguinLabel.text = Game.Instance.penguins + " penguins";
         foodLabel.text = Game.Instance.food + " food left";
         distanceLabel.text = (Game.Instance.goalDistance - Game.Instance.distance) + " miles to go";

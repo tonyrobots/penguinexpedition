@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: All is lost.
   copy: Your journey ends here. Perhaps some other penguin will find your journal
-    one day, and remember your trevails.
+    one day, and remember your travails.
   eventEffects: []
-  options: []
   nextEvent: {fileID: 0}
+  illustration: {fileID: 0}

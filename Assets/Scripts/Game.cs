@@ -25,6 +25,8 @@ public class Game : Singleton<Game>
     public int morale = 100;
     public int goalDistance = 100;
 
+    private bool planning = true;
+
     [SerializeField] private GameObject illustrationImageGO;
     private Image illustrationImage;
 
@@ -50,50 +52,64 @@ public class Game : Singleton<Game>
 
         if (penguins <= 0) return;
 
-        // Generate event
-        GetRandomEvent();
+        if (!planning) {
+            // advance turn
+            turn++;
 
-        // advance turn
-        turn++;
+            // Generate event
+            GetRandomEvent();  
+        } else {
 
-        // consume food
-        food -= penguins;
+            mainText.text = "planning phase";
 
-        // make progress
-        distance += 6;
+            int todayDistance = 6;
+            int todayMorale = -5;
+            int todayFood = -penguins;
 
-        // morale decays
-        morale -= 5;
+            // consume food
+            food -= penguins;
 
-        // if out of food, pengy dies
-        if (food <= 0) {
-            food = 0;
-            penguins--;
+            // make progress
+            distance += todayDistance;
+
+            // morale decays
+            morale -= todayMorale;
+
+            // if out of food, pengy dies
+            if (food <= 0) {
+                food = 0;
+                penguins--;
+            }
+
+            mainText.text += $"Today we traveled {todayDistance} miles, and ate {todayFood} fish.";
+
+            // if morale is exhausted, game over
+            if (morale <= 0)
+            {
+                morale = 0;
+                PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
+
+
+            }
+
+            // if out of pengys, game over
+            if (penguins <= 0)
+            {
+                penguins = 0;
+                PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
+
+                Debug.Log("Game over!");
+            }
+            // if we have traveled to the goal, game over - winner, winner!
+            if (distance >= goalDistance)
+            {
+                PlayEvent(EventManager.Instance.FindEventByName("You have arrived!"));
+                Debug.Log("Game over!");
+            }
         }
 
-        // if morale is exhausted, game over
-        if (morale <= 0)
-        {
-            morale = 0;
-            PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
-
-
-        }
-
-        // if out of pengys, game over
-        if (penguins <= 0)
-        {
-            penguins = 0;
-            PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
-
-            Debug.Log("Game over!");
-        }
-        // if we have traveled to the goal, game over - winner, winner!
-        if (distance >= goalDistance)
-        {
-            PlayEvent(EventManager.Instance.FindEventByName("You have arrived!"));
-            Debug.Log("Game over!");
-        }
+        // flip day/night
+        planning = !planning;
     }
 
     public void GetRandomEvent()
