@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e8ca32c89f0c014e8462937b945f4c2, type: 3}
-  m_Name: Ice Zepplin
+  m_Name: You lose
   m_EditorClassIdentifier: 
-  title: An omen in the sky?
-  copy: As if a strange mirage, a great zepplin appeared in the sky, far in the distance.
-    It may have been just a trick of my rimey mind, but I was dazzled & inspired
-    by its beauty.
-  eventEffects:
-  - key: 1
-    value: 5
+  title: All is lost.
+  copy: Your journey ends here. Perhaps some other penguin will find your journal
+    one day, and remember your trevails.
+  eventEffects: []
+  options: []
   nextEvent: {fileID: 0}

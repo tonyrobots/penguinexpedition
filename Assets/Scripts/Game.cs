@@ -25,12 +25,17 @@ public class Game : Singleton<Game>
     public int morale = 100;
     public int goalDistance = 100;
 
+    [SerializeField] private GameObject illustrationImageGO;
+    private Image illustrationImage;
 
     [SerializeField] private TextMeshProUGUI mainText = null;
+    [SerializeField] private TextMeshProUGUI effectsSummaryText = null;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        illustrationImage = illustrationImageGO.GetComponent<Image>();
         
     }
 
@@ -58,7 +63,7 @@ public class Game : Singleton<Game>
         distance += 6;
 
         // morale decays
-        morale -= 1;
+        morale -= 5;
 
         // if out of food, pengy dies
         if (food <= 0) {
@@ -66,23 +71,34 @@ public class Game : Singleton<Game>
             penguins--;
         }
 
+        // if morale is exhausted, game over
+        if (morale <= 0)
+        {
+            morale = 0;
+            PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
+
+
+        }
+
         // if out of pengys, game over
         if (penguins <= 0)
         {
             penguins = 0;
+            PlayEvent(EventManager.Instance.FindEventByName("All is lost."));
+
             Debug.Log("Game over!");
         }
         // if we have traveled to the goal, game over - winner, winner!
         if (distance >= goalDistance)
         {
-            penguins = 0;
+            PlayEvent(EventManager.Instance.FindEventByName("You have arrived!"));
             Debug.Log("Game over!");
         }
     }
 
     public void GetRandomEvent()
     {
-        Event currentEvent = EventManager.Instance.events[Random.Range(0,EventManager.Instance.events.Count)];
+        Event currentEvent = EventManager.Instance.randomEvents[Random.Range(0,EventManager.Instance.randomEvents.Count)];
         PlayEvent(currentEvent);
 
     }
@@ -90,7 +106,16 @@ public class Game : Singleton<Game>
     public void PlayEvent(Event e)
     {
         mainText.text = e.Copy;
-        e.ApplyEffects();
+        // add effects outcome summary text
+        effectsSummaryText.text = e.ApplyEffects();
+
+        if (e.illustration != null) 
+        {
+            illustrationImage.overrideSprite = e.illustration;
+            illustrationImage.enabled = true;
+        } else {
+            illustrationImage.enabled = false;
+        }
         if (e.NextEvent != null)
         {
             PlayEvent(e.NextEvent);

@@ -17,7 +17,8 @@ MonoBehaviour:
     that seemed so happy to see us that he led us to a cache of delicious fish. Good
     joss!
   eventEffects:
-  - key: FOOD
-    value: 25
-  - key: MORALE
-    value: 10
+  - key: 0
+    value: 15
+  - key: 1
+    value: 6
+  nextEvent: {fileID: 0}

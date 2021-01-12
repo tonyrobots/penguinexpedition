@@ -13,8 +13,6 @@ public class UILabels : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moraleLabel = null;
     [SerializeField] private TextMeshProUGUI distanceLabel = null;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
