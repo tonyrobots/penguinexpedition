@@ -113,8 +113,11 @@ public class Game : Singleton<Game>
         {
             illustrationImage.overrideSprite = e.illustration;
             illustrationImage.enabled = true;
+            mainText.rectTransform.sizeDelta = new Vector2(291,122.4f);
         } else {
             illustrationImage.enabled = false;
+            mainText.rectTransform.sizeDelta = new Vector2(492, 122.4f);
+
         }
         if (e.NextEvent != null)
         {
