@@ -38,6 +38,7 @@ public class Game : Singleton<Game>
     void Start()
     {
         illustrationImage = illustrationImageGO.GetComponent<Image>();
+        UIManager.Instance.SetActionsPanelVisibility(false);
         
     }
 
@@ -47,12 +48,19 @@ public class Game : Singleton<Game>
         
     }
 
-    public void Endturn()
+    public void Endturn(int mode=0)
     {
+
+        if (mode !=0)  {
+            Debug.Log("action: " + mode);
+        }
 
         if (penguins <= 0) return;
 
         if (!planning) {
+            // hide planning actions
+            UIManager.Instance.SetActionsPanelVisibility(false);
+
             // advance turn
             turn++;
 
@@ -60,20 +68,22 @@ public class Game : Singleton<Game>
             GetRandomEvent();  
         } else {
 
-            mainText.text = "planning phase";
+            UIManager.Instance.SetActionsPanelVisibility(true);
+
+            mainText.text = "<u>planning phase</u>\n";
 
             int todayDistance = 6;
             int todayMorale = -5;
             int todayFood = -penguins;
 
             // consume food
-            food -= penguins;
+            food += todayFood;
 
             // make progress
             distance += todayDistance;
 
             // morale decays
-            morale -= todayMorale;
+            morale += todayMorale;
 
             // if out of food, pengy dies
             if (food <= 0) {
@@ -81,7 +91,7 @@ public class Game : Singleton<Game>
                 penguins--;
             }
 
-            mainText.text += $"Today we traveled {todayDistance} miles, and ate {todayFood} fish.";
+            mainText.text += $"Today we traveled {todayDistance} miles, and ate {Mathf.Min(Mathf.Abs(todayFood),penguins)} fish.";
 
             // if morale is exhausted, game over
             if (morale <= 0)
