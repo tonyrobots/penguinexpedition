@@ -13,6 +13,9 @@ public class UILabels : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moraleLabel = null;
     [SerializeField] private TextMeshProUGUI distanceLabel = null;
 
+    public Image[] fireImages;
+    private int fireLevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +35,24 @@ public class UILabels : MonoBehaviour
         foodLabel.text = Game.Instance.food + " food left";
         distanceLabel.text = (Game.Instance.goalDistance - Game.Instance.distance) + " miles to go";
         moraleLabel.text = "morale: " + Game.Instance.morale;
+        UpdateFire(Game.Instance.morale);
+    }
+
+    public void UpdateFire(int morale)
+    {
+        int newFireLevel = Mathf.CeilToInt(morale/20);
+
+        if (newFireLevel == fireLevel) return;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if ((5-newFireLevel) > i) {
+                fireImages[i].enabled = false;
+            } else {
+                fireImages[i].enabled = true;
+            }
+        }
+
+        fireLevel = newFireLevel;
     }
 }
