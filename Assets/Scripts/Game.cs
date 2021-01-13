@@ -10,7 +10,8 @@ public enum Counters
     MORALE,
     DISTANCE,
     GOAL_DISTANCE,
-    PENGUINS
+    PENGUINS,
+    TEMPERATURE
 }
 
 public enum Activities
@@ -48,6 +49,8 @@ public class Game : Singleton<Game>
 
     public DayTally[] daysTally;
 
+    public Event nextEvent;
+
     [SerializeField] private GameObject illustrationImageGO = null;
     private Image illustrationImage;
 
@@ -61,6 +64,9 @@ public class Game : Singleton<Game>
         illustrationImage = illustrationImageGO.GetComponent<Image>();
         UIManager.Instance.SetActionsPanelVisibility(false);
         daysTally = new DayTally[32];
+
+        // temp
+        GameObject.FindGameObjectWithTag("music").GetComponent<AudioController>().PlayMusic(1);
     }
 
     // Update is called once per frame
@@ -87,15 +93,12 @@ public class Game : Singleton<Game>
             case 2:
                 activity = Activities.SAFE_TRAVEL;
                 break;
-
             case 3:
                 activity = Activities.RISKY_TRAVEL;
                 break;
-
             case 4:
                 activity = Activities.FROLIC;
                 break;
-
             default:
                 activity = Activities.NONE;
                 break;
@@ -104,6 +107,7 @@ public class Game : Singleton<Game>
         Endturn();
     }
 
+    // Should clean this up and split out different functions, it's doing way too much.
     public void Endturn()
     {
 
@@ -121,7 +125,17 @@ public class Game : Singleton<Game>
             turn++;
 
             // Generate event
-            GetRandomEvent(daysActivity);  
+            PlayEvent(EventManager.Instance.GetRandomEvent(daysActivity));
+
+            // // Should we have a random event? Or standard?
+            // float diceRoll = Random.Range(0,1f);
+
+            // if (diceRoll < .40) {
+            //     // Generate event
+            //     PlayEvent(EventManager.Instance.GetRandomEvent(daysActivity));
+            // } else {
+            //     // ShowOutcome(daysActivity);
+            // }
         } else {
 
             // Night/Planning phase
@@ -130,7 +144,7 @@ public class Game : Singleton<Game>
 
             mainText.text = "<u>around the campfire</u>\n";
 
-            // DETERMINE EFFECTS OF DAYS ACTIVITY
+            // DETERMINE EFFECTS OF DAY'S ACTIVITY
             switch (daysActivity)
             {
                 case Activities.FISH:
@@ -163,7 +177,6 @@ public class Game : Singleton<Game>
 
             // Apply fish eaten to day's tally
             daysTally[turn].FishEaten += penguins;
-
 
             // APPLY EFFECTS/TALLY
 
@@ -227,26 +240,21 @@ public class Game : Singleton<Game>
         planning = !planning;
     }
 
-    public void GetRandomEvent(Activities activity)
-    {
-        Event currentEvent;
-        if (Random.Range(0,1f) > .7f)
-        {
-            // 30% chance of random event
-            currentEvent = EventManager.Instance.randomEvents[Random.Range(0,EventManager.Instance.randomEvents.Count)];
-        } else {
-            currentEvent = EventManager.Instance.FindEventByID("travel1");
-        }
-        PlayEvent(currentEvent);
+    public void PlayEventChain(Event e) {
 
     }
-
     public void PlayEvent(Event e)
     {
         mainText.text = e.Copy;
         // add effects outcome summary text
         effectsSummaryText.text = e.ApplyEffects();
 
+        // process event options
+        if (e.Options.Count > 0) 
+        {
+            // show options
+            UIManager.Instance.ShowEventOptions(e.Options);
+        }
         if (e.illustration != null) 
         {
             illustrationImage.overrideSprite = e.illustration;
@@ -256,10 +264,6 @@ public class Game : Singleton<Game>
             illustrationImage.enabled = false;
             mainText.rectTransform.sizeDelta = new Vector2(492, 122.4f);
 
-        }
-        if (e.NextEvent != null)
-        {
-            PlayEvent(e.NextEvent);
         }
     }
 

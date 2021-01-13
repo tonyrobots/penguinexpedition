@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: You lose
   m_EditorClassIdentifier: 
   title: All is lost.
-  copy: Your journey ends here. Perhaps some other penguin will find your journal
-    one day, and remember your travails.
+  copy: 'I''m afraid that our journey ends here. I underestimated the cruelty of
+    the antarctic, and simply cannot move my flagging body another step.
+
+
+    Perhaps
+    some other penguin will find this  journal one day, and remember our  travails.'
   eventEffects: []
   nextEvent: {fileID: 0}
   id: lose

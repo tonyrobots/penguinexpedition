@@ -17,9 +17,9 @@ public class Event : ScriptableObject
     [TextArea]
     [SerializeField] private string copy = "You won't believe what happened.";
     [SerializeField] private List<EventEffect> eventEffects = null;
-    // [SerializeField] private List<Option> options = null;
+    [SerializeField] private List<Option> options = null;
 
-    [SerializeField] private Event nextEvent;
+    // [SerializeField] private Event nextEvent;
     public string id;
 
     public Sprite illustration;
@@ -33,22 +33,21 @@ public class Event : ScriptableObject
 
     public string Title => title;
     public string Copy => copy;
-    public Event NextEvent => nextEvent;
+    // public Event NextEvent => nextEvent;
     public List<EventEffect> EventEffects => eventEffects;
     public bool repeatable;
 
 
-    // [System.Serializable]
-    // public struct Option
-    // {
-    //     public string copy;
-    //     public Event outcomeEvent;
-    // }
+    [System.Serializable]
+    public struct Option
+    {
+        public string copy;
+        public Event outcomeEvent;
+    }
 
 
 
-    // public List<Option> Options => options;
-
+    public List<Option> Options => options;
 
 
     public string ApplyEffects()
@@ -58,6 +57,10 @@ public class Event : ScriptableObject
         foreach (EventEffect effect in eventEffects)
         {
             Game.Instance.TallyCounterForDay(effect.key, effect.value);
+            if (effect.key == Counters.GOAL_DISTANCE)
+            {
+                Game.Instance.goalDistance -= effect.value;
+            }
             effectsSummary += FormatEffectSummary(effect.key, effect.value);
         }
 
@@ -70,16 +73,27 @@ public class Event : ScriptableObject
         if (value == 0) return "";
 
         string effectSummary = (value > 0) ? "<color=#074905>" : "<color=\"red\">";
-        
-        effectSummary += key.ToString().ToLower();
-        // set +/-
-        if (value > 0) 
-        {
-            effectSummary += " +" + value;
-        } else {
-            effectSummary += " " + value;
 
-        } 
+        if (key == Counters.GOAL_DISTANCE) {
+            // special case, b/c it's a little goofy
+            effectSummary += "Distance to goal ";
+            effectSummary += (value > 0) ? " -":" +";
+            effectSummary += Mathf.Abs(value);
+        } else {
+            effectSummary += key.ToString().ToLower();
+            // set +/-
+            if (value > 0)
+            {
+                effectSummary += " +" + value;
+            }
+            else
+            {
+                effectSummary += " " + value;
+
+            }
+        }
+        
+         
         return effectSummary + "</color> ";
     }
 
