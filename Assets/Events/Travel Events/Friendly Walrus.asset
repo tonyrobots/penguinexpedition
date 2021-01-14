@@ -18,10 +18,15 @@ MonoBehaviour:
     joss!
   eventEffects:
   - key: 0
-    value: 15
+    value: 5
+    valueMax: 15
   - key: 1
-    value: 6
-  nextEvent: {fileID: 0}
+    value: 4
+    valueMax: 7
+  - key: 2
+    value: 3
+    valueMax: 10
+  options: []
   id: walrus
   illustration: {fileID: 0}
   repeatable: 0

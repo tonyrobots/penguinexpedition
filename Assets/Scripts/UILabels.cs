@@ -40,7 +40,7 @@ public class UILabels : MonoBehaviour
 
     public void UpdateFire(int morale)
     {
-        int newFireLevel = Mathf.CeilToInt(morale/20);
+        int newFireLevel = Mathf.CeilToInt(morale/20f);
 
         if (newFireLevel == fireLevel) return;
 

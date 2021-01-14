@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// interface IEvent
-// {
-//     bool IsApplicable();
-//     void Execute();
-//     string title;
-// }
+
 [CreateAssetMenu(fileName = "New Event", menuName = "Event")]
 
 public class Event : ScriptableObject
@@ -29,6 +24,7 @@ public class Event : ScriptableObject
     public struct EventEffect {
         public Counters key;
         public int value;
+        public int valueMax;
     }
 
     public string Title => title;
@@ -56,12 +52,22 @@ public class Event : ScriptableObject
 
         foreach (EventEffect effect in eventEffects)
         {
-            Game.Instance.TallyCounterForDay(effect.key, effect.value);
+            int value;
+
+            if (effect.valueMax != 0) {
+                value = Random.Range(effect.value, effect.valueMax);  
+            } else {
+                value = effect.value;
+            }
+            // for everything that gets tallied by tally counter
+            Game.Instance.TallyCounterForDay(effect.key, value);
+
+            // for goal distance as special case, since negative numbers are good.
             if (effect.key == Counters.GOAL_DISTANCE)
             {
-                Game.Instance.goalDistance -= effect.value;
+                Game.Instance.goalDistance -= value;
             }
-            effectsSummary += FormatEffectSummary(effect.key, effect.value);
+            effectsSummary += FormatEffectSummary(effect.key, value);
         }
 
         return effectsSummary;

@@ -780,12 +780,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29530f0c1a112643a027aa3e78c386f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music1: {fileID: 8300000, guid: 33f0f48db6333354b896d0ce76ae0a65, type: 3}
-  music2: {fileID: 8300000, guid: 7e80c999e67b1ec4e8da3f185745765d, type: 3}
-  music3: {fileID: 8300000, guid: a07c95de66aa34040867f0369f22ce24, type: 3}
-  ambient1: {fileID: 8300000, guid: 2f57813728c6260428b07d54d939ec4a, type: 3}
-  ambient2: {fileID: 8300000, guid: 9a8028a792d6a6d44ab493fb09211930, type: 3}
-  ambient3: {fileID: 8300000, guid: 2c7196aab41912c4d970f98a949e6709, type: 3}
+  myClips:
+  - {fileID: 8300000, guid: a07c95de66aa34040867f0369f22ce24, type: 3}
+  - {fileID: 8300000, guid: 85620898a97eb2c428d6df3ce2668071, type: 3}
+  - {fileID: 8300000, guid: 33f0f48db6333354b896d0ce76ae0a65, type: 3}
 --- !u!82 &1324423330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -926,12 +924,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29530f0c1a112643a027aa3e78c386f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music1: {fileID: 8300000, guid: 33f0f48db6333354b896d0ce76ae0a65, type: 3}
-  music2: {fileID: 8300000, guid: 7e80c999e67b1ec4e8da3f185745765d, type: 3}
-  music3: {fileID: 8300000, guid: a07c95de66aa34040867f0369f22ce24, type: 3}
-  ambient1: {fileID: 8300000, guid: 2f57813728c6260428b07d54d939ec4a, type: 3}
-  ambient2: {fileID: 8300000, guid: 9a8028a792d6a6d44ab493fb09211930, type: 3}
-  ambient3: {fileID: 8300000, guid: 2c7196aab41912c4d970f98a949e6709, type: 3}
+  myClips:
+  - {fileID: 8300000, guid: 2f57813728c6260428b07d54d939ec4a, type: 3}
+  - {fileID: 8300000, guid: 2c7196aab41912c4d970f98a949e6709, type: 3}
+  - {fileID: 8300000, guid: 9a8028a792d6a6d44ab493fb09211930, type: 3}
 --- !u!82 &1438948133
 AudioSource:
   m_ObjectHideFlags: 0

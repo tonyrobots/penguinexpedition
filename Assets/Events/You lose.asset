@@ -20,7 +20,7 @@ MonoBehaviour:
     Perhaps
     some other penguin will find this  journal one day, and remember our  travails.'
   eventEffects: []
-  nextEvent: {fileID: 0}
+  options: []
   id: lose
   illustration: {fileID: 0}
   repeatable: 0

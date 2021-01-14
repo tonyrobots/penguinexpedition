@@ -21,8 +21,9 @@ MonoBehaviour:
     to sing a long, sad song that united us for a few moments in sweet misery.'
   eventEffects:
   - key: 1
-    value: 10
+    value: 0
+    valueMax: 25
   options: []
   id: 
   illustration: {fileID: 21300000, guid: f4a62154836617e43b0ea7af13c27339, type: 3}
-  repeatable: 0
+  repeatable: 1

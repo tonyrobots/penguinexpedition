@@ -11,7 +11,7 @@ public class FlameFlickering : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timedelay = Random.Range(.3f,1f);
+        timedelay = Random.Range(.2f,.8f);
         InvokeRepeating("Flicker", 0f, timedelay);
         
     }

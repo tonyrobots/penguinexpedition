@@ -22,7 +22,8 @@ MonoBehaviour:
   eventEffects:
   - key: 1
     value: 10
+    valueMax: 20
   options: []
   id: 
   illustration: {fileID: 0}
-  repeatable: 0
+  repeatable: 1

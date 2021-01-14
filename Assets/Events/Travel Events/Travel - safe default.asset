@@ -16,7 +16,13 @@ MonoBehaviour:
   copy: "The snow was something less than blinding, the cold something less than
     lethally bitter, so we must consider it a good day. \n\nWe progress, inch by
     inch, ever closer to our goal."
-  eventEffects: []
+  eventEffects:
+  - key: 2
+    value: 4
+    valueMax: 10
+  - key: 1
+    value: -4
+    valueMax: -10
   options: []
   id: travel1
   illustration: {fileID: 21300000, guid: 0cf67362f1e9dc745babb8b3edb7125a, type: 3}

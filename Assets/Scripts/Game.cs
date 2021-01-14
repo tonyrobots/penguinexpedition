@@ -51,6 +51,9 @@ public class Game : Singleton<Game>
 
     public Event nextEvent;
 
+    public AudioController musicPlayer;
+    public AudioController ambientPlayer;
+
     [SerializeField] private GameObject illustrationImageGO = null;
     private Image illustrationImage;
 
@@ -65,8 +68,17 @@ public class Game : Singleton<Game>
         UIManager.Instance.SetActionsPanelVisibility(false);
         daysTally = new DayTally[32];
 
+        musicPlayer = GameObject.FindGameObjectWithTag("music").GetComponent<AudioController>();
+        ambientPlayer = GameObject.FindGameObjectWithTag("ambient").GetComponent<AudioController>();
+
+
         // temp
-        GameObject.FindGameObjectWithTag("music").GetComponent<AudioController>().PlayMusic(1);
+        if (musicPlayer != null)
+        {
+        if (musicPlayer != null)
+            musicPlayer.PlayClip(0);
+        }
+
     }
 
     // Update is called once per frame
@@ -147,27 +159,28 @@ public class Game : Singleton<Game>
             // DETERMINE EFFECTS OF DAY'S ACTIVITY
             switch (daysActivity)
             {
+                // should make these all events? YES
                 case Activities.FISH:
                     // stop and fish
-                    daysTally[turn].FishCaught += Random.Range(5, 25);
-                    daysTally[turn].MoraleGained = Mathf.RoundToInt(daysTally[turn].FishCaught /5);
-                    daysTally[turn].DistanceTraveled += 0;
+                    //daysTally[turn].FishCaught += Random.Range(5, 25);
+                    // daysTally[turn].MoraleGained = Mathf.RoundToInt(daysTally[turn].FishCaught /5);
+                    //daysTally[turn].DistanceTraveled += 0;
                     break;
                 case Activities.SAFE_TRAVEL:
                     // safe route
-                    daysTally[turn].MoraleGained = Random.Range(-5, 3);
-                    daysTally[turn].DistanceTraveled += Random.Range(5,10);
+                    //daysTally[turn].MoraleGained = Random.Range(-10, 2);
+                    //daysTally[turn].DistanceTraveled += Random.Range(5,10);
                     break;
                 case Activities.RISKY_TRAVEL:
                     // aggressive route
-                    daysTally[turn].MoraleGained = Random.Range(-15, 5);
-                    daysTally[turn].DistanceTraveled += Random.Range(10, 20);
+                    // daysTally[turn].MoraleGained = Random.Range(-20, 5);
+                    // daysTally[turn].DistanceTraveled += Random.Range(10, 20);
                     break;
 
                 case Activities.FROLIC:
                     // rest and frolic!
-                    daysTally[turn].MoraleGained = Random.Range(5, 15);
-                    daysTally[turn].DistanceTraveled += 0;
+                    // daysTally[turn].MoraleGained = Random.Range(5, 15);
+                    // daysTally[turn].DistanceTraveled += 0;
                     break;
                 
                 default:
@@ -179,18 +192,9 @@ public class Game : Singleton<Game>
             daysTally[turn].FishEaten += penguins;
 
             // APPLY EFFECTS/TALLY
+            ApplyTally();
 
-            // add food to larder
-            food += daysTally[turn].FishCaught;
 
-            // consume food
-            food -= daysTally[turn].FishEaten;
-
-            // make progress
-            distance += daysTally[turn].DistanceTraveled;
-
-            // morale decays
-            morale += daysTally[turn].MoraleGained;
 
             // clear effects display from special events
             effectsSummaryText.text = "";
@@ -202,13 +206,11 @@ public class Game : Singleton<Game>
                 penguins--;
             }
 
-            mainText.text += $"Today we traveled {daysTally[turn].DistanceTraveled} miles, ";
-            
-            if (daysTally[turn].FishCaught >0)
-            {
-                mainText.text += $"caught { daysTally[turn].FishCaught} fish, & ate {daysTally[turn].FishEaten} of them.";    
+            if (turn > 0) {
+                mainText.text = TurnReport(turn);
             } else {
-                mainText.text += $"& ate {daysTally[turn].FishEaten} fish.";
+                mainText.text += "Tonight we gather our strength, and think of our loved ones so far away. We are coming home to you. We swear it. \n";
+                mainText.text += "It all starts with a single waddle, though. What shall we plan to do tomorrow?";
             }
 
             // if morale is exhausted, game over
@@ -216,8 +218,6 @@ public class Game : Singleton<Game>
             {
                 morale = 0;
                 PlayEvent(EventManager.Instance.FindEventByID("lose"));
-
-
             }
 
             // if out of pengys, game over
@@ -240,9 +240,7 @@ public class Game : Singleton<Game>
         planning = !planning;
     }
 
-    public void PlayEventChain(Event e) {
 
-    }
     public void PlayEvent(Event e)
     {
         mainText.text = e.Copy;
@@ -285,6 +283,40 @@ public class Game : Singleton<Game>
                 break;
         }
     
+    }
+
+    private void ApplyTally()
+    {
+        if (turn == 0) return;
+        // add food to larder
+        food += daysTally[turn].FishCaught;
+
+        // consume food
+        food -= daysTally[turn].FishEaten;
+
+        // make progress
+        distance += daysTally[turn].DistanceTraveled;
+
+        // morale decays
+        morale += daysTally[turn].MoraleGained;
+        morale = Mathf.Min(morale, 100);
+    }
+
+    private string TurnReport(int turn) {
+
+        string report = "";
+        report += $"Today we traveled {daysTally[turn].DistanceTraveled} miles, ";
+
+        if (daysTally[turn].FishCaught > 0)
+        {
+            report += $"caught { daysTally[turn].FishCaught} fish, & ate {daysTally[turn].FishEaten} of them.";
+        }
+        else
+        {
+            report += $"& ate {daysTally[turn].FishEaten} fish.";
+        }
+
+        return report;
     }
 
     // public void GetEvent()

@@ -54,6 +54,8 @@ public class EventManager : Singleton<EventManager>
                 {
                     // 30% chance of random event
                     currentEvent = travelEvents[Random.Range(0,travelEvents.Count)];
+                    if (!currentEvent.repeatable) travelEvents.Remove(currentEvent);
+
                 }
                 else
                 {
@@ -65,10 +67,12 @@ public class EventManager : Singleton<EventManager>
                 {
                     // 60% chance of random event
                     currentEvent = travelEvents[Random.Range(0, travelEvents.Count)];
+                    if (!currentEvent.repeatable) travelEvents.Remove(currentEvent);
+
                 }
                 else
                 {
-                    currentEvent = FindEventByID("travel1");
+                    currentEvent = FindEventByID("travel2");
                 }
                 break;
             case Activities.FROLIC:
@@ -76,6 +80,8 @@ public class EventManager : Singleton<EventManager>
                 {
                     // 20% chance of random event
                     currentEvent = frolicEvents[Random.Range(0, frolicEvents.Count)];
+                    if (!currentEvent.repeatable) frolicEvents.Remove(currentEvent);
+
                 }
                 else
                 {
@@ -87,6 +93,8 @@ public class EventManager : Singleton<EventManager>
                 {
                     // 20% chance of random event
                     currentEvent = fishingEvents[Random.Range(0, fishingEvents.Count)];
+                    if (!currentEvent.repeatable) fishingEvents.Remove(currentEvent);
+
                 }
                 else
                 {

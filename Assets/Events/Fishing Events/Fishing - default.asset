@@ -17,7 +17,8 @@ MonoBehaviour:
     of the task ahead. '
   eventEffects:
   - key: 0
-    value: 1000
+    value: 2
+    valueMax: 25
   options: []
   id: fish1
   illustration: {fileID: 21300000, guid: b461511d6827cb3418f3d1c71056ec28, type: 3}

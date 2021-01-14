@@ -18,8 +18,9 @@ MonoBehaviour:
     dampened all day.
   eventEffects:
   - key: 1
-    value: -15
-  nextEvent: {fileID: 0}
+    value: -10
+    valueMax: -15
+  options: []
   id: corpse
   illustration: {fileID: 21300000, guid: 4c93c7209f9b7174b8ebea3a5e16dd17, type: 3}
   repeatable: 0

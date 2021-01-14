@@ -17,7 +17,8 @@ MonoBehaviour:
     thought it best if we took the day to rest and recuperate.
   eventEffects:
   - key: 1
-    value: 12
+    value: 5
+    valueMax: 15
   options: []
   id: frolic1
   illustration: {fileID: 0}

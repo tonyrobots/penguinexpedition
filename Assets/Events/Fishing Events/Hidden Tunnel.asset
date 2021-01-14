@@ -22,9 +22,12 @@ MonoBehaviour:
     travel!'
   eventEffects:
   - key: 3
-    value: 5
+    value: 4
+    valueMax: 10
+  - key: 0
+    value: 2
+    valueMax: 12
   options: []
-  nextEvent: {fileID: 0}
   id: tunnel
   illustration: {fileID: 0}
   repeatable: 0

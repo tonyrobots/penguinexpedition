@@ -6,14 +6,7 @@ public class AudioController : MonoBehaviour
 {
     private AudioSource _audioSource;
 
-    public AudioClip music1;
-    public AudioClip music2;
-    public AudioClip music3;
-
-    public AudioClip ambient1;
-    public AudioClip ambient2;
-    public AudioClip ambient3;
-
+    public List<AudioClip> myClips;
 
 
     private void Awake()
@@ -22,14 +15,10 @@ public class AudioController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlayMusic(int clipIndex) {
-        _audioSource.clip = music1;
+    public void PlayClip(int clipIndex) {
+        _audioSource.clip = myClips[clipIndex];
         _audioSource.Play();
     }
 
-    public void PlayAmbient(int clipIndex) {
-        _audioSource.clip = ambient2;
-        _audioSource.Play();
-    }
 
 }
