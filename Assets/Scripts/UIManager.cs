@@ -84,7 +84,12 @@ public class UIManager : Singleton<UIManager>
         RefreshUI();
 
         // play option event ?
-        Game.Instance.PlayEvent(option.outcomeEvent);
+        if (option.outcomeEvent) {
+            Game.Instance.PlayEvent(option.outcomeEvent);
+        } else {
+            Debug.Log("no option event for option: " + option.copy);
+            Game.Instance.Endturn();
+        }
     }
 
     void RefreshUI()

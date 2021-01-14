@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e8ca32c89f0c014e8462937b945f4c2, type: 3}
-  m_Name: Friendly Walrus
+  m_Name: Shipwreck
   m_EditorClassIdentifier: 
-  title: A Friendly Walrus
-  copy: "We had only just set out for the day when we came across a garrulous walrus
-    that seemed so happy to see us that he led us to a cache of delicious fish. \n\nGood
-    joss!"
+  title: A shipwreck
+  copy: "We didn't get far today when we came across the wreckage of a great sailing
+    ship. Who were these poor souls, and where were they headed? \n\nDistracted by
+    the novelty, we didn't make much progress, but we did manage to find some preserved
+    rations left behind."
   eventEffects:
   - key: 0
-    value: 5
-    valueMax: 15
-  - key: 1
-    value: 4
+    value: 2
     valueMax: 7
   - key: 2
-    value: 3
-    valueMax: 10
+    value: 2
+    valueMax: 5
   options: []
-  id: walrus
-  illustration: {fileID: 0}
+  id: 
+  illustration: {fileID: 21300000, guid: 2f6ab1c584e0e0c48a9332abd98bff68, type: 3}
   repeatable: 0

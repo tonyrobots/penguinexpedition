@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Frozen Body
   m_EditorClassIdentifier: 
   title: A frozen body
-  copy: Today we discovered a body frozen in the ice. It served as a grim reminder
-    of the stakes of our journey and that we walk on a dagger's edge. Moods were
-    dampened all day.
+  copy: As we made our way across a narrow ridge, we discovered a body frozen in
+    the ice. It served as a grim reminder of the stakes of our journey and that we
+    walk on a dagger's edge. Moods were dampened all day.
   eventEffects:
   - key: 1
     value: -10
     valueMax: -15
+  - key: 2
+    value: 5
+    valueMax: 11
   options: []
   id: corpse
   illustration: {fileID: 21300000, guid: 4c93c7209f9b7174b8ebea3a5e16dd17, type: 3}

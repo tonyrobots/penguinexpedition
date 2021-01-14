@@ -50,7 +50,7 @@ public class EventManager : Singleton<EventManager>
         switch (activity)
         {
             case Activities.SAFE_TRAVEL:
-                if (Random.Range(0, 1f) < .3f)
+                if ((Random.Range(0, 1f) < .3f) && travelEvents.Count > 0)
                 {
                     // 30% chance of random event
                     currentEvent = travelEvents[Random.Range(0,travelEvents.Count)];
@@ -63,7 +63,7 @@ public class EventManager : Singleton<EventManager>
                 }
                 break;
             case Activities.RISKY_TRAVEL:
-                if (Random.Range(0, 1f) < .6f)
+                if ((Random.Range(0, 1f) < .6f) && travelEvents.Count > 0)
                 {
                     // 60% chance of random event
                     currentEvent = travelEvents[Random.Range(0, travelEvents.Count)];
@@ -76,7 +76,7 @@ public class EventManager : Singleton<EventManager>
                 }
                 break;
             case Activities.FROLIC:
-                if (Random.Range(0, 1f) < .2f)
+                if ((Random.Range(0, 1f) < .2f) && frolicEvents.Count > 0)
                 {
                     // 20% chance of random event
                     currentEvent = frolicEvents[Random.Range(0, frolicEvents.Count)];
@@ -89,7 +89,7 @@ public class EventManager : Singleton<EventManager>
                 }
                 break;
             case Activities.FISH:
-                if (Random.Range(0, 1f) < .2f)
+                if ((Random.Range(0, 1f) < .2f) && fishingEvents.Count > 0)
                 {
                     // 20% chance of random event
                     currentEvent = fishingEvents[Random.Range(0, fishingEvents.Count)];

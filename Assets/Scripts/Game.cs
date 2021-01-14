@@ -28,11 +28,12 @@ public class Game : Singleton<Game>
 {
 
     public int turn = 0;
+    public int startingMorale=60;
     // don't actually want these to be public
     public int food = 100;
     public int penguins = 10;
     public int distance = 0;
-    public int morale = 100;
+    public int morale = 60;
     public int goalDistance = 100;
 
     private bool planning = true;

@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: Fishing - default
   m_EditorClassIdentifier: 
   title: A day of Fishing
-  copy: 'Supplies dwindling, we decided to spend the day fishing and taking stock
-    of the task ahead. '
+  copy: "Supplies dwindling, we decided to spend the day fishing and taking stock
+    of the task ahead.\n\nThough everyone is tired and ready to quit for the day,
+    I considered asking them to press on...\n\n "
   eventEffects:
   - key: 0
     value: 2
     valueMax: 25
-  options: []
+  options:
+  - copy: Fish more
+    outcomeEvent: {fileID: 11400000, guid: bf77662b35f06734d97485be37d41c8b, type: 2}
+  - copy: Call it quits
+    outcomeEvent: {fileID: 0}
   id: fish1
   illustration: {fileID: 21300000, guid: b461511d6827cb3418f3d1c71056ec28, type: 3}
   repeatable: 1

@@ -10,23 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e8ca32c89f0c014e8462937b945f4c2, type: 3}
-  m_Name: Ice Zepplin - follow
+  m_Name: A Bounty!
   m_EditorClassIdentifier: 
-  title: Lost
-  copy: 'I shouted at the party to follow the airship, hoping for what I do not know.
-
-
-    It
-    turned out to be a misjudgement, as it took us off our route and cost us a day''s
-    travel. '
+  title: A Bounty!
+  copy: 'Great Goliath, did we have a rip-snorting day today at the ice hole! The
+    fish were practically jumping into our nets.  '
   eventEffects:
+  - key: 0
+    value: 18
+    valueMax: 30
   - key: 1
-    value: 0
-    valueMax: -5
-  - key: 2
-    value: -7
-    valueMax: -4
+    value: 3
+    valueMax: 7
   options: []
   id: 
-  illustration: {fileID: 21300000, guid: a745896713b70af4baed429d30172584, type: 3}
-  repeatable: 1
+  illustration: {fileID: 0}
+  repeatable: 0

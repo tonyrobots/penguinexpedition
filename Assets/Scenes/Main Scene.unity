@@ -1342,10 +1342,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turn: 0
+  startingMorale: 60
   food: 100
   penguins: 10
   distance: 0
-  morale: 100
+  morale: 60
   goalDistance: 100
   daysActivity: 0
   nextEvent: {fileID: 0}
@@ -1394,6 +1395,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df0ac55b251039f41aa0d21943dc6131, type: 2}
   - {fileID: 11400000, guid: ca8f1c2a4448eae45892a8f71e5681c0, type: 2}
   - {fileID: 11400000, guid: 74ae568ae603ba246977837b90f8d127, type: 2}
+  - {fileID: 11400000, guid: 518c8cd970918ac4dab6580e7e8a8005, type: 2}
 --- !u!114 &375308019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3405,8 +3407,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 29.199997, y: 10.199997}
-  m_SizeDelta: {x: 223.83743, y: 39.70253}
+  m_AnchoredPosition: {x: 27.199997, y: 10.199997}
+  m_SizeDelta: {x: 225, y: 70}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1584458248
 MonoBehaviour:
@@ -3458,9 +3460,9 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -3468,7 +3470,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
-  m_lineSpacingMax: 0
+  m_lineSpacingMax: -30
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1

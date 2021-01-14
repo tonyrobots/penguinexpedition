@@ -100,7 +100,7 @@ public class Event : ScriptableObject
         }
         
          
-        return effectSummary + "</color> ";
+        return effectSummary + "</color> \n";
     }
 
 }

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Ice Zepplin
   m_EditorClassIdentifier: 
   title: An omen in the sky?
-  copy: As if a strange mirage, a great zepplin appeared in the sky, far in the distance.
-    It may have been just a trick of my rimey mind, but I was dazzled & inspired
-    by its beauty.
+  copy: As the sun was reaching its mid-day zenith, as if a strange mirage, a great
+    zepplin appeared in the sky, far in the distance. It may have been just a trick
+    of my rimey mind, but I was dazzled & inspired by its beauty.
   eventEffects:
   - key: 1
     value: 3

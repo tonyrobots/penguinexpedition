@@ -40,9 +40,13 @@ public class UILabels : MonoBehaviour
 
     public void UpdateFire(int morale)
     {
-        int newFireLevel = Mathf.CeilToInt(morale/20f);
+        float moralePct = 100 * morale/Game.Instance.startingMorale;
+        int newFireLevel = Mathf.CeilToInt(moralePct/20f);
 
         if (newFireLevel == fireLevel) return;
+
+        Debug.Log(moralePct + "%");
+
 
         for (int i = 0; i < 5; i++)
         {
