@@ -9,7 +9,7 @@ public class UIManager : Singleton<UIManager>
 {
 
     [SerializeField]
-    private Canvas mainCanvas= null;  
+    private GameObject eventPanel = null;  
 
     [SerializeField]
     private GameObject actionsPanel= null;
@@ -22,6 +22,8 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField]
     private GameObject optionButtonPrefab = null;
+
+    public Image fadeOutUIImage;
 
 
     // Start is called before the first frame update
@@ -92,7 +94,7 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    void RefreshUI()
+    public void RefreshUI()
     {
         // enable normal 'continue' button
         endTurnButton.SetActive(true);
@@ -105,6 +107,46 @@ public class UIManager : Singleton<UIManager>
 
     }
 
+    public IEnumerator NightFade()
+    {
+        eventPanel.SetActive(false);
+        yield return StartCoroutine(Fade(false, .5f));
+        eventPanel.SetActive(true);
+
+        yield return StartCoroutine(Fade(true, .5f));
+
+    }
+
+
+    private IEnumerator Fade(bool fadeIn, float secs)
+    {
+        Debug.Log ("Start Fade: " + fadeIn);
+        float alpha = (fadeIn == true) ? 1 : 0;
+        float fadeEndValue = (fadeIn == true) ? 0 : 1;
+        if (fadeIn == true)
+        {
+            while (alpha >= fadeEndValue)
+            {
+                SetColorImage(ref alpha, fadeIn, secs);
+                yield return null;
+            }
+            fadeOutUIImage.enabled = false;
+        }
+        else
+        {
+            fadeOutUIImage.enabled = true;
+            while (alpha <= fadeEndValue)
+            {
+                SetColorImage(ref alpha, fadeIn, secs);
+                yield return null;
+            }
+        }
+    }
+    private void SetColorImage(ref float alpha, bool fadeIn, float fadeSpeed)
+    {
+        fadeOutUIImage.color = new Color(fadeOutUIImage.color.r, fadeOutUIImage.color.g, fadeOutUIImage.color.b, alpha);
+        alpha += Time.deltaTime * (1.0f / fadeSpeed) * ((fadeIn == true) ? -1 : 1);
+    }
     
 
 

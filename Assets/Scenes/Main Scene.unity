@@ -597,7 +597,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &109614236
 GameObject:
@@ -678,6 +678,80 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109614236}
+  m_CullTransparentMesh: 0
+--- !u!1 &125426523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125426524}
+  - component: {fileID: 125426526}
+  - component: {fileID: 125426525}
+  m_Layer: 5
+  m_Name: Fade Image - Black
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &125426524
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125426523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1721127554}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.45117188, y: -0.3383789}
+  m_SizeDelta: {x: 825, y: 500}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &125426525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125426523}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 0
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &125426526
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125426523}
   m_CullTransparentMesh: 0
 --- !u!1 &141265401
 GameObject:
@@ -1367,7 +1441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &375308018
 MonoBehaviour:
@@ -1385,6 +1459,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1ac0c2ddb01cbf42b9980801cdbe6e9, type: 2}
   - {fileID: 11400000, guid: 315e806bab31cff47ae55db3388dc8ce, type: 2}
   - {fileID: 11400000, guid: 4b6329226c3e1c54499bac09f69c61bb, type: 2}
+  - {fileID: 11400000, guid: 2044ff216eb49e449b6e9dae06140d63, type: 2}
   frolicEvents:
   - {fileID: 11400000, guid: 1b33cd3f246faa94e934455e6f91bf0f, type: 2}
   fishingEvents:
@@ -1431,12 +1506,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a29fb1b8642cef4996f6f376cfea9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCanvas: {fileID: 1721127553}
+  eventPanel: {fileID: 154985344}
   actionsPanel: {fileID: 987979856}
   endTurnButton: {fileID: 2029816586}
   optionButtonsPanel: {fileID: 509562824}
   optionButtonPrefab: {fileID: 2279869481893689640, guid: 4d843595d4e34d34dbb6e45a89576909,
     type: 3}
+  fadeOutUIImage: {fileID: 125426525}
 --- !u!114 &375308021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1450,7 +1526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOutUIImage: {fileID: 972429197}
-  fadeSpeed: 3
+  fadeSpeed: 2
+  fadeOnEnable: 1
 --- !u!1 &434394744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,7 +2442,7 @@ GameObject:
   - component: {fileID: 972429198}
   - component: {fileID: 972429197}
   m_Layer: 5
-  m_Name: Fade Image
+  m_Name: Fade Image - White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3869,6 +3946,7 @@ RectTransform:
   - {fileID: 154985345}
   - {fileID: 74411080}
   - {fileID: 972429196}
+  - {fileID: 125426524}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

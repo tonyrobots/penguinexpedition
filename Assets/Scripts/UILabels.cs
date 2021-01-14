@@ -34,13 +34,13 @@ public class UILabels : MonoBehaviour
         penguinLabel.text = Game.Instance.penguins + " penguins";
         foodLabel.text = Game.Instance.food + " food left";
         distanceLabel.text = (Game.Instance.goalDistance - Game.Instance.distance) + " miles to go";
-        moraleLabel.text = "morale: " + Game.Instance.morale;
+        moraleLabel.text = "morale: " + Mathf.FloorToInt(Game.Instance.MoralePct()) + "%";
         UpdateFire(Game.Instance.morale);
     }
 
     public void UpdateFire(int morale)
     {
-        float moralePct = 100 * morale/Game.Instance.startingMorale;
+        float moralePct = Game.Instance.MoralePct();
         int newFireLevel = Mathf.CeilToInt(moralePct/20f);
 
         if (newFireLevel == fireLevel) return;

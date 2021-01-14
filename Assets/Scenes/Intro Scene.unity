@@ -409,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -784,6 +784,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a07c95de66aa34040867f0369f22ce24, type: 3}
   - {fileID: 8300000, guid: 85620898a97eb2c428d6df3ce2668071, type: 3}
   - {fileID: 8300000, guid: 33f0f48db6333354b896d0ce76ae0a65, type: 3}
+  - {fileID: 8300000, guid: 7e80c999e67b1ec4e8da3f185745765d, type: 3}
 --- !u!82 &1324423330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -892,7 +893,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1438948131
 GameObject:
@@ -1036,7 +1037,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1771295813
 GameObject:
@@ -1068,7 +1069,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOutUIImage: {fileID: 417945712}
-  fadeSpeed: 1
+  fadeSpeed: 2
+  fadeOnEnable: 1
 --- !u!4 &1771295816
 Transform:
   m_ObjectHideFlags: 0
@@ -1081,7 +1083,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1817847887
 GameObject:
@@ -1230,7 +1232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1753704549878116805
 MonoBehaviour:

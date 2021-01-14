@@ -69,15 +69,19 @@ public class Game : Singleton<Game>
         UIManager.Instance.SetActionsPanelVisibility(false);
         daysTally = new DayTally[32];
 
-        musicPlayer = GameObject.FindGameObjectWithTag("music").GetComponent<AudioController>();
-        ambientPlayer = GameObject.FindGameObjectWithTag("ambient").GetComponent<AudioController>();
+        if (GameObject.FindGameObjectWithTag("music") != null) {
+            musicPlayer = GameObject.FindGameObjectWithTag("music").GetComponent<AudioController>();
+        }
+        if (GameObject.FindGameObjectWithTag("ambient") != null) {
+            ambientPlayer = GameObject.FindGameObjectWithTag("ambient").GetComponent<AudioController>();
+        }
 
 
         // temp
         if (musicPlayer != null)
         {
-        if (musicPlayer != null)
             musicPlayer.PlayClip(0);
+            musicPlayer.gameObject.AddComponent<ScoreController>();
         }
 
     }
@@ -117,6 +121,7 @@ public class Game : Singleton<Game>
                 break;
         }
         daysActivity = activity;
+        StartCoroutine(UIManager.Instance.NightFade());
         Endturn();
     }
 
@@ -300,7 +305,7 @@ public class Game : Singleton<Game>
 
         // morale decays
         morale += daysTally[turn].MoraleGained;
-        morale = Mathf.Min(morale, 100);
+        morale = Mathf.Min(morale, startingMorale);
     }
 
     private string TurnReport(int turn) {
@@ -318,6 +323,10 @@ public class Game : Singleton<Game>
         }
 
         return report;
+    }
+
+    public float MoralePct() {
+        return 100f * morale / startingMorale;
     }
 
     // public void GetEvent()

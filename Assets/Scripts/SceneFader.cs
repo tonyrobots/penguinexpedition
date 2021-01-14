@@ -10,6 +10,7 @@ public class SceneFader : MonoBehaviour
     #region FIELDS
     public Image fadeOutUIImage;
     public float fadeSpeed = 2f;
+    public bool fadeOnEnable = true;
 
 
     public enum FadeDirection
@@ -22,7 +23,7 @@ public class SceneFader : MonoBehaviour
     #region MONOBEHAVIOR
     void OnEnable()
     {
-        StartCoroutine(Fade(FadeDirection.Out));
+        if (fadeOnEnable) StartCoroutine(Fade(FadeDirection.Out));
     }
     #endregion
 
