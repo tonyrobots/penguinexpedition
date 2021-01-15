@@ -1460,7 +1460,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 315e806bab31cff47ae55db3388dc8ce, type: 2}
   - {fileID: 11400000, guid: 4b6329226c3e1c54499bac09f69c61bb, type: 2}
   - {fileID: 11400000, guid: 2044ff216eb49e449b6e9dae06140d63, type: 2}
+  - {fileID: 11400000, guid: de664ccde5e102b4880a5656ee607f64, type: 2}
+  - {fileID: 11400000, guid: 827ab535f5a224c44b7e774c04484581, type: 2}
   frolicEvents:
+  - {fileID: 11400000, guid: 1b33cd3f246faa94e934455e6f91bf0f, type: 2}
+  - {fileID: 11400000, guid: 782497920936fcc409342f4d03be96aa, type: 2}
   - {fileID: 11400000, guid: 1b33cd3f246faa94e934455e6f91bf0f, type: 2}
   fishingEvents:
   - {fileID: 11400000, guid: 0cdacb2dc45ee604f97fe9274bc07dd8, type: 2}
@@ -1511,6 +1515,8 @@ MonoBehaviour:
   eventPanel: {fileID: 154985344}
   actionsPanel: {fileID: 987979856}
   endTurnButton: {fileID: 2029816586}
+  winButton: {fileID: 1412477047}
+  loseButton: {fileID: 1240059715}
   optionButtonsPanel: {fileID: 509562824}
   optionButtonPrefab: {fileID: 2279869481893689640, guid: 4d843595d4e34d34dbb6e45a89576909,
     type: 3}
@@ -2777,7 +2783,7 @@ GameObject:
   - component: {fileID: 1240059718}
   - component: {fileID: 1240059717}
   m_Layer: 5
-  m_Name: lose_cont
+  m_Name: lose_cont button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3822,7 +3828,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: carry on
+  m_text: hurrah!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64c69817a3786694b9cd9c8cce1f0704, type: 2}
   m_sharedMaterial: {fileID: 4148575553961961850, guid: 64c69817a3786694b9cd9c8cce1f0704,
@@ -4461,7 +4467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: carry on
+  m_text: alas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64c69817a3786694b9cd9c8cce1f0704, type: 2}
   m_sharedMaterial: {fileID: 4148575553961961850, guid: 64c69817a3786694b9cd9c8cce1f0704,

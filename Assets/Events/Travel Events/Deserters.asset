@@ -10,29 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e8ca32c89f0c014e8462937b945f4c2, type: 3}
-  m_Name: no food - abandonment
+  m_Name: Deserters
   m_EditorClassIdentifier: 
-  title: Out of Food
-  copy: 'The food has run out, and Charlie, grumbling about your leadership decides
-    to strike out on his own. I tried to tell him it was a suicidal folly, but he
-    wouldn''t hear it.
+  title: Deserters
+  copy: 'Don''t know what got into them, but Charlie and Cyril snapped, and decided
+    to strike out on their  own. I tried to tell them it was a suicidal folly, but
+    he wouldn''t hear it.
 
 
-    We managed to gather some scraps from an old rucksack,
-    so it wasn''t a total loss.
-
-    It''s one fewer mouth to feed, at least.'
+    It''s two less mouths to feed, at least.'
   eventEffects:
   - key: 1
-    value: -5
-    valueMax: -1
+    value: -6
+    valueMax: -2
   - key: 4
-    value: -1
+    value: -2
     valueMax: 0
-  - key: 0
-    value: 2
-    valueMax: 6
+  - key: 5
+    value: -3
+    valueMax: -6
   options: []
   id: no_food
   illustration: {fileID: 21300000, guid: 6957c5098dabcec41ac2c84278c6d171, type: 3}
-  repeatable: 1
+  repeatable: 0

@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: You win
   m_EditorClassIdentifier: 
   title: You have arrived!
-  copy: "You crest a snow bank, and the clouds part, letting sunshine through. \n\n...
-    you won!"
+  copy: 'On this glorious day, we crested a snow bank, and the suddenly the clouds
+    parted, letting sunshine through.  There they were! We had arrived!
+
+
+    The
+    party slid joyously down the hill to be reunited with their mates. O, happy day!'
   eventEffects: []
   options: []
   id: win

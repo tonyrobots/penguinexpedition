@@ -266,7 +266,6 @@ public class Game : Singleton<Game>
 
     void GameOver(string type) {
         UIManager.Instance.SetActionsPanelVisibility(false);
-        Button button;
         if (type == "win") {
             UIManager.Instance.winButton.SetActive(true);
         } else {
@@ -353,8 +352,11 @@ public class Game : Singleton<Game>
             report += $"& ate {daysTally[turn].FishEaten} fish. \n";
         }
 
-        if (food < 20) {
-            report += "Fish stocks are getting parlously low. \n";
+        if (food <= 0) {
+            report += "We are out of fish, and one of our party has starved.";
+        
+        } else if (food < 20) {
+            report += "Fish stocks are getting low. \n";
         }
 
         if (daysTally[turn].MoraleGained > 0) {
