@@ -21,8 +21,8 @@ MonoBehaviour:
     value: 4
     valueMax: 10
   - key: 1
-    value: -4
-    valueMax: -10
+    value: -2
+    valueMax: -8
   options: []
   id: travel1
   illustration: {fileID: 21300000, guid: 0cf67362f1e9dc745babb8b3edb7125a, type: 3}

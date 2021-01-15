@@ -23,6 +23,6 @@ MonoBehaviour:
     value: 3
     valueMax: 7
   options: []
-  id: 
+  id: bounty
   illustration: {fileID: 0}
   repeatable: 0

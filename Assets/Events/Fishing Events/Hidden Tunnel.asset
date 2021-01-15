@@ -29,5 +29,5 @@ MonoBehaviour:
     valueMax: 12
   options: []
   id: tunnel
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 4c93c7209f9b7174b8ebea3a5e16dd17, type: 3}
   repeatable: 0

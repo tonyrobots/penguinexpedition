@@ -15,7 +15,12 @@ public class UIManager : Singleton<UIManager>
     private GameObject actionsPanel= null;
 
     [SerializeField]
-    private GameObject endTurnButton = null;
+    public GameObject endTurnButton = null;
+
+    [SerializeField]
+    public GameObject winButton = null;
+    [SerializeField]
+    public GameObject loseButton = null;
 
     [SerializeField]
     private GameObject optionButtonsPanel = null;

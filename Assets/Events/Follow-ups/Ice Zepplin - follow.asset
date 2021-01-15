@@ -21,8 +21,8 @@ MonoBehaviour:
     travel. '
   eventEffects:
   - key: 1
-    value: 0
-    valueMax: -5
+    value: -1
+    valueMax: 4
   - key: 2
     value: -7
     valueMax: -4

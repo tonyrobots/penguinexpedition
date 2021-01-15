@@ -37,6 +37,7 @@ public class Game : Singleton<Game>
     public int goalDistance = 100;
 
     private bool planning = true;
+    private bool gameOver = false;
     public Activities daysActivity;
 
     public struct DayTally
@@ -125,6 +126,11 @@ public class Game : Singleton<Game>
         Endturn();
     }
 
+    public void Continue()
+    {
+        Endturn();
+    }
+
     // Should clean this up and split out different functions, it's doing way too much.
     public void Endturn()
     {
@@ -132,8 +138,7 @@ public class Game : Singleton<Game>
         // if (activity !=0)  {
         //     Debug.Log("action: " + activity);
         // }
-        Debug.Log("today's activity: " + daysActivity.ToString());
-        if (penguins <= 0) return;
+        if (penguins <= 0 || gameOver) return;
 
         if (!planning) {
             // hide planning actions
@@ -157,42 +162,44 @@ public class Game : Singleton<Game>
         } else {
 
             // Night/Planning phase
+            
 
             UIManager.Instance.SetActionsPanelVisibility(true);
 
-            mainText.text = "<u>around the campfire</u>\n";
+            mainText.text = "";
 
             // DETERMINE EFFECTS OF DAY'S ACTIVITY
-            switch (daysActivity)
-            {
-                // should make these all events? YES
-                case Activities.FISH:
-                    // stop and fish
-                    //daysTally[turn].FishCaught += Random.Range(5, 25);
-                    // daysTally[turn].MoraleGained = Mathf.RoundToInt(daysTally[turn].FishCaught /5);
-                    //daysTally[turn].DistanceTraveled += 0;
-                    break;
-                case Activities.SAFE_TRAVEL:
-                    // safe route
-                    //daysTally[turn].MoraleGained = Random.Range(-10, 2);
-                    //daysTally[turn].DistanceTraveled += Random.Range(5,10);
-                    break;
-                case Activities.RISKY_TRAVEL:
-                    // aggressive route
-                    // daysTally[turn].MoraleGained = Random.Range(-20, 5);
-                    // daysTally[turn].DistanceTraveled += Random.Range(10, 20);
-                    break;
 
-                case Activities.FROLIC:
-                    // rest and frolic!
-                    // daysTally[turn].MoraleGained = Random.Range(5, 15);
-                    // daysTally[turn].DistanceTraveled += 0;
-                    break;
+            // switch (daysActivity)
+            // {
+            //     // should make these all events? YES
+            //     case Activities.FISH:
+            //         // stop and fish
+            //         //daysTally[turn].FishCaught += Random.Range(5, 25);
+            //         // daysTally[turn].MoraleGained = Mathf.RoundToInt(daysTally[turn].FishCaught /5);
+            //         //daysTally[turn].DistanceTraveled += 0;
+            //         break;
+            //     case Activities.SAFE_TRAVEL:
+            //         // safe route
+            //         //daysTally[turn].MoraleGained = Random.Range(-10, 2);
+            //         //daysTally[turn].DistanceTraveled += Random.Range(5,10);
+            //         break;
+            //     case Activities.RISKY_TRAVEL:
+            //         // aggressive route
+            //         // daysTally[turn].MoraleGained = Random.Range(-20, 5);
+            //         // daysTally[turn].DistanceTraveled += Random.Range(10, 20);
+            //         break;
+
+            //     case Activities.FROLIC:
+            //         // rest and frolic!
+            //         // daysTally[turn].MoraleGained = Random.Range(5, 15);
+            //         // daysTally[turn].DistanceTraveled += 0;
+            //         break;
                 
-                default:
-                    break;
+            //     default:
+            //         break;
 
-            }
+            // }
 
             // Apply fish eaten to day's tally
             daysTally[turn].FishEaten += penguins;
@@ -205,47 +212,71 @@ public class Game : Singleton<Game>
             // clear effects display from special events
             effectsSummaryText.text = "";
 
-            // CHECK WIN/LOSE/OTHER CONDITIONS
             // if out of food, pengy dies
-            if (food <= 0) {
+            if (food <= 0)
+            {
                 food = 0;
+                //PlayEvent(EventManager.Instance.FindEventByID("no_food"));
                 penguins--;
             }
 
             if (turn > 0) {
-                mainText.text = TurnReport(turn);
+                mainText.text += TurnReport(turn);
+                mainText.text += "What shall we do in the morning?";
             } else {
-                mainText.text += "Tonight we gather our strength, and think of our loved ones so far away. We are coming home to you. We swear it. \n";
-                mainText.text += "It all starts with a single waddle, though. What shall we plan to do tomorrow?";
+                mainText.text += "Tonight we gather our strength, and think of our beloveds so far away. We are coming home to you, we swear it.\n";
+                mainText.text += "A great journey starts with but a single waddle.\n How shall we begin?";
             }
+            // check win/lose conditions:
+
+            // if we have traveled to the goal, game over - winner, winner!
+            if (distance >= goalDistance)
+            {
+                PlayEvent(EventManager.Instance.FindEventByID("win"));
+                GameOver("win");
+            }
+            else
 
             // if morale is exhausted, game over
             if (morale <= 0)
             {
                 morale = 0;
                 PlayEvent(EventManager.Instance.FindEventByID("lose"));
+                GameOver("lose");
             }
+            else
 
             // if out of pengys, game over
             if (penguins <= 0)
             {
                 penguins = 0;
                 PlayEvent(EventManager.Instance.FindEventByID("lose"));
+                GameOver("lose");
 
                 Debug.Log("Game over!");
             }
-            // if we have traveled to the goal, game over - winner, winner!
-            if (distance >= goalDistance)
-            {
-                PlayEvent(EventManager.Instance.FindEventByID("win"));
-                Debug.Log("Game over!");
-            }
+
         }
+    
 
         // flip day/night
         planning = !planning;
+        
     }
 
+    void GameOver(string type) {
+        UIManager.Instance.SetActionsPanelVisibility(false);
+        Button button;
+        if (type == "win") {
+            UIManager.Instance.winButton.SetActive(true);
+        } else {
+            UIManager.Instance.loseButton.SetActive(true);
+        }
+        UIManager.Instance.endTurnButton.SetActive(false);
+        gameOver = true;
+        // FindObjectOfType<SceneFader>().SwitchSceneWithFade(1);
+        // now what?
+    }
 
     public void PlayEvent(Event e)
     {
@@ -315,14 +346,35 @@ public class Game : Singleton<Game>
 
         if (daysTally[turn].FishCaught > 0)
         {
-            report += $"caught { daysTally[turn].FishCaught} fish, & ate {daysTally[turn].FishEaten} of them.";
+            report += $"caught { daysTally[turn].FishCaught} fish, & ate {daysTally[turn].FishEaten} of them.\n";
         }
         else
         {
-            report += $"& ate {daysTally[turn].FishEaten} fish.";
+            report += $"& ate {daysTally[turn].FishEaten} fish. \n";
         }
 
-        return report;
+        if (food < 20) {
+            report += "Fish stocks are getting parlously low. \n";
+        }
+
+        if (daysTally[turn].MoraleGained > 0) {
+            report +=  "Spirits were raised somewhat today, ";
+            if (MoralePct() < 30)
+            {
+                report += "but perhaps a day of rest is in order?";
+            } else {
+                report += "thankfully.";
+            }
+        } else if (daysTally[turn].MoraleGained < 0) {
+            report +=  "The day was hard, and our spirit burns a bit dimmer; ";
+            if (MoralePct() < 30)
+            {
+                report += "perhaps a day of frolic would help?";
+            }
+        }
+
+
+        return report + "\n";
     }
 
     public float MoralePct() {
