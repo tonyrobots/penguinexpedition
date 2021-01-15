@@ -12,6 +12,8 @@ public class UILabels : MonoBehaviour
     [SerializeField] private TextMeshProUGUI foodLabel = null;
     [SerializeField] private TextMeshProUGUI moraleLabel = null;
     [SerializeField] private TextMeshProUGUI distanceLabel = null;
+    [SerializeField] private TextMeshProUGUI temperatureLabel = null;
+
 
     public Image[] fireImages;
     private int fireLevel;
@@ -35,6 +37,7 @@ public class UILabels : MonoBehaviour
         foodLabel.text = Game.Instance.food + " food left";
         distanceLabel.text = (Game.Instance.goalDistance - Game.Instance.distance) + " miles to go";
         moraleLabel.text = "morale: " + Mathf.FloorToInt(Game.Instance.MoralePct()) + "%";
+        temperatureLabel.text = Game.Instance.temperature + "C";
         UpdateFire(Game.Instance.morale);
     }
 

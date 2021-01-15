@@ -90,12 +90,19 @@ public class Event : ScriptableObject
             // set +/-
             if (value > 0)
             {
-                effectSummary += " +" + value;
+                effectSummary += " +";
             }
             else
             {
-                effectSummary += " " + value;
+                effectSummary += " ";
 
+            }
+
+            if (key == Counters.MORALE)
+            {
+                effectSummary += value * 100/Game.Instance.startingMorale + "%";
+            } else {
+                effectSummary += value;
             }
         }
         

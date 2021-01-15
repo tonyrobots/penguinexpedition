@@ -35,6 +35,7 @@ public class Game : Singleton<Game>
     public int distance = 0;
     public int morale = 60;
     public int goalDistance = 100;
+    public int temperature = -49;
 
     private bool planning = true;
     private bool gameOver = false;
@@ -47,6 +48,7 @@ public class Game : Singleton<Game>
         public int FishEaten;
         public int FishCaught;
         public int PenguinsGained;
+        public int TemperatureChange;
     }
 
     public DayTally[] daysTally;
@@ -143,6 +145,9 @@ public class Game : Singleton<Game>
         if (!planning) {
             // hide planning actions
             UIManager.Instance.SetActionsPanelVisibility(false);
+
+            // temperature fluctuation
+            temperature += Random.Range(-4,5);
 
             // advance turn
             turn++;
@@ -266,10 +271,14 @@ public class Game : Singleton<Game>
 
     void GameOver(string type) {
         UIManager.Instance.SetActionsPanelVisibility(false);
+        
         if (type == "win") {
             UIManager.Instance.winButton.SetActive(true);
+            morale = startingMorale;
+            musicPlayer.Stop(1f);
         } else {
             UIManager.Instance.loseButton.SetActive(true);
+            morale = 0;
         }
         UIManager.Instance.endTurnButton.SetActive(false);
         gameOver = true;
@@ -317,6 +326,9 @@ public class Game : Singleton<Game>
             case Counters.PENGUINS:
                 daysTally[turn].PenguinsGained += value;
                 break;
+            case Counters.TEMPERATURE:
+                daysTally[turn].TemperatureChange += value;
+                break;
         }
     
     }
@@ -331,11 +343,20 @@ public class Game : Singleton<Game>
         food -= daysTally[turn].FishEaten;
 
         // make progress
-        distance += daysTally[turn].DistanceTraveled;
+        distance += daysTally[turn].DistanceTraveled + TemperatureModifier();
 
         // morale decays
-        morale += daysTally[turn].MoraleGained;
+        morale += daysTally[turn].MoraleGained + TemperatureModifier();
         morale = Mathf.Min(morale, startingMorale);
+
+        //temp
+        temperature += daysTally[turn].TemperatureChange;
+    }
+
+    int TemperatureModifier() {
+        // return Mathf.CeilToInt(temperature/10f)+5;
+        return Mathf.RoundToInt((temperature + 50)/5);
+
     }
 
     private string TurnReport(int turn) {
@@ -353,7 +374,7 @@ public class Game : Singleton<Game>
         }
 
         if (food <= 0) {
-            report += "We are out of fish, and one of our party has starved.";
+            report += "<u>We are out of fish, and one of our party has starved.</u>";
         
         } else if (food < 20) {
             report += "Fish stocks are getting low. \n";
