@@ -59,6 +59,12 @@ public class Event : ScriptableObject
             } else {
                 value = effect.value;
             }
+
+            // add temperature effect
+            if (effect.key == Counters.MORALE || effect.key == Counters.DISTANCE)
+            {
+                value = value + Game.Instance.TemperatureModifier();
+            }
             // for everything that gets tallied by tally counter
             Game.Instance.TallyCounterForDay(effect.key, value);
 

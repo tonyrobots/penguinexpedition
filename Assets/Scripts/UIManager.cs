@@ -14,6 +14,14 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     private GameObject actionsPanel= null;
 
+    [SerializeField] private TextMeshProUGUI mainText = null;
+    [SerializeField] private TextMeshProUGUI mainText2 = null;
+
+
+    [SerializeField] private TMP_FontAsset mainFont = null;
+    [SerializeField] private TMP_FontAsset altFont = null;
+
+
     [SerializeField]
     public GameObject endTurnButton = null;
 
@@ -40,6 +48,20 @@ public class UIManager : Singleton<UIManager>
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("f")){
+            // toggle font
+            if (mainText.font == mainFont) {
+                mainText.font = altFont; 
+                mainText2.font = altFont;
+                mainText.lineSpacing = -35;
+                mainText2.lineSpacing = -35;
+            } else {
+                mainText.font = mainFont;
+                mainText2.font = mainFont;
+                mainText.lineSpacing = -50;
+                mainText2.lineSpacing = -50;
+            }
+        }
         
     }
 
@@ -48,6 +70,8 @@ public class UIManager : Singleton<UIManager>
         actionsPanel.SetActive(visible);
         endTurnButton.SetActive(!visible);
     }
+
+
 
     public void ShowEventOptions(List<Event.Option> options)
     {
@@ -118,7 +142,7 @@ public class UIManager : Singleton<UIManager>
         yield return StartCoroutine(Fade(false, .5f));
         eventPanel.SetActive(true);
 
-        yield return StartCoroutine(Fade(true, .5f));
+        yield return StartCoroutine(Fade(true, .8f));
 
     }
 

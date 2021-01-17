@@ -35,7 +35,7 @@ public class UILabels : MonoBehaviour
         }
         penguinLabel.text = Game.Instance.penguins + " penguins";
         foodLabel.text = Game.Instance.food + " food left";
-        distanceLabel.text = (Game.Instance.goalDistance - Game.Instance.distance) + " miles to go";
+        distanceLabel.text = Mathf.Max((Game.Instance.goalDistance - Game.Instance.distance),0) + " miles to go";
         moraleLabel.text = "morale: " + Mathf.FloorToInt(Game.Instance.MoralePct()) + "%";
         temperatureLabel.text = Game.Instance.temperature + "C";
         UpdateFire(Game.Instance.morale);

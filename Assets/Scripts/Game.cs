@@ -147,7 +147,7 @@ public class Game : Singleton<Game>
             UIManager.Instance.SetActionsPanelVisibility(false);
 
             // temperature fluctuation
-            temperature += Random.Range(-4,5);
+            temperature += Random.Range(-3,4);
 
             // advance turn
             turn++;
@@ -171,7 +171,10 @@ public class Game : Singleton<Game>
 
             UIManager.Instance.SetActionsPanelVisibility(true);
 
+            // clear main text & illustration
             mainText.text = "";
+            ShowIllustrationImage(false);
+
 
             // DETERMINE EFFECTS OF DAY'S ACTIVITY
 
@@ -200,7 +203,7 @@ public class Game : Singleton<Game>
             //         // daysTally[turn].MoraleGained = Random.Range(5, 15);
             //         // daysTally[turn].DistanceTraveled += 0;
             //         break;
-                
+
             //     default:
             //         break;
 
@@ -271,7 +274,9 @@ public class Game : Singleton<Game>
 
     void GameOver(string type) {
         UIManager.Instance.SetActionsPanelVisibility(false);
-        
+        UIManager.Instance.endTurnButton.SetActive(false);
+
+
         if (type == "win") {
             UIManager.Instance.winButton.SetActive(true);
             morale = startingMorale;
@@ -280,10 +285,8 @@ public class Game : Singleton<Game>
             UIManager.Instance.loseButton.SetActive(true);
             morale = 0;
         }
-        UIManager.Instance.endTurnButton.SetActive(false);
         gameOver = true;
-        // FindObjectOfType<SceneFader>().SwitchSceneWithFade(1);
-        // now what?
+
     }
 
     public void PlayEvent(Event e)
@@ -301,13 +304,23 @@ public class Game : Singleton<Game>
         if (e.illustration != null) 
         {
             illustrationImage.overrideSprite = e.illustration;
-            illustrationImage.enabled = true;
-            mainText.rectTransform.sizeDelta = new Vector2(291,122.4f);
+            ShowIllustrationImage(true);
+            // illustrationImage.enabled = true;
+            // mainText.rectTransform.sizeDelta = new Vector2(291,122.4f);
         } else {
-            illustrationImage.enabled = false;
-            mainText.rectTransform.sizeDelta = new Vector2(492, 122.4f);
+            ShowIllustrationImage(false);
+
+            // illustrationImage.enabled = false;
+            // mainText.rectTransform.sizeDelta = new Vector2(492, 122.4f);
 
         }
+    }
+
+    public void ShowIllustrationImage(bool show)
+    // move this to UI controller!
+    {
+        illustrationImage.enabled = show;
+        mainText.rectTransform.sizeDelta = show ? new Vector2(291, 122.4f) : new Vector2(492, 122.4f);
     }
 
     public void TallyCounterForDay(Counters type, int value)
@@ -343,17 +356,17 @@ public class Game : Singleton<Game>
         food -= daysTally[turn].FishEaten;
 
         // make progress
-        distance += daysTally[turn].DistanceTraveled + TemperatureModifier();
+        distance += daysTally[turn].DistanceTraveled;
 
         // morale decays
-        morale += daysTally[turn].MoraleGained + TemperatureModifier();
+        morale += daysTally[turn].MoraleGained;
         morale = Mathf.Min(morale, startingMorale);
 
         //temp
         temperature += daysTally[turn].TemperatureChange;
     }
 
-    int TemperatureModifier() {
+    public int TemperatureModifier() {
         // return Mathf.CeilToInt(temperature/10f)+5;
         return Mathf.RoundToInt((temperature + 50)/5);
 
